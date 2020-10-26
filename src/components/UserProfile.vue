@@ -7,6 +7,28 @@
         <div class="user-profile__follower-count">
             <strong>Followers:</strong> {{followers}}
         </div>
+
+        <form class="user-profile__create-tweet" @submit.prevent="createNewTweet">
+            <label for="newTweet"><strong>New Tweet</strong></label>
+            <textarea id="newTweet" rows="4" v-model="newTweetContent"/>
+
+            <div class="user-profile__create-tweet-type">
+                <label for="newTweetType"><strong>Type</strong></label>
+                <select id="newTweetType" v-model="selectedTweetType">
+                    <option 
+                        :value="option.value" 
+                        v-for="(option, index) in tweetTypes" 
+                        :key="index">
+
+                        {{option.name}}
+                    </option>
+                </select>
+            </div>
+
+            <button>
+                Tweet
+            </button>
+        </form>
     </div>
 
     <div class="user-profile__tweets-wrapper">
@@ -14,7 +36,8 @@
             v-for="tweet in user.tweets" 
             :key="tweet.id" 
             :username="user.username"
-            :tweet="tweet"/>
+            :tweet="tweet"
+            @favorite="toggleFavorite"/>
     </div>
 
   </div>
@@ -27,6 +50,16 @@ export default {
   components: {TweetItem},
   data() {
     return {
+      newTweetContent: '',
+      selectedTweetType: 'draft',
+      tweetTypes:[
+          {
+              value: 'draft', name: 'Draft'
+          },
+          {
+              value: 'instant', name: 'Instant Tweet'
+          }
+      ],
       followers: 0,
       user: {
         id: 1,
@@ -63,6 +96,19 @@ export default {
   methods: {
     followUser() {
       this.followers = this.followers + 1
+    },
+    toggleFavorite(id){
+        console.log(`favorited tweet #${id}`)
+    },
+    createNewTweet() {
+        if(this.newTweetContent && this.selectedTweetType != 'draft'){
+            this.user.tweets.unshift({
+                id: this.user.tweets.length + 1,
+                content: this.newTweetContent
+            })
+
+            this.newTweetContent = ''
+        }
     }
   },
   mounted() {
@@ -104,5 +150,11 @@ export default {
     .user-profile__tweets-wrapper {
         display: grid;
         grid-gap: 10px;
+    }
+
+    .user-profile__create-tweet{
+        padding-top: 20px;
+        display: flex;
+        flex-direction: column;
     }
 </style>
