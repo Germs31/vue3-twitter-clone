@@ -9,7 +9,7 @@
         </div>
 
         <form class="user-profile__create-tweet" @submit.prevent="createNewTweet">
-            <label for="newTweet"><strong>New Tweet</strong></label>
+            <label for="newTweet"><strong>New Tweet</strong> ({{newTweetCharacterCount}}/180)</label>
             <textarea id="newTweet" rows="4" v-model="newTweetContent"/>
 
             <div class="user-profile__create-tweet-type">
@@ -89,8 +89,8 @@ export default {
     }
   },
   computed: {
-    fullName(){
-      return `${this.user.firstName} ${this.user.lastName}`;
+    newTweetCharacterCount() {
+        return this.newTweetContent.length
     }
   },
   methods: {
@@ -149,17 +149,13 @@ export default {
                 padding-top: 20px;
                 display: flex;
                 flex-direction: column;
+
             }
         }
-        
+
         .user-profile__tweets-wrapper {
             display: grid;
             grid-gap: 10px;
         }
     }
-
-
-
-
-
 </style>
