@@ -2,8 +2,8 @@
     <form 
         class="create-tweet-panel"
         @submit.prevent="createNewTweet"
-        :class="{'--exceeded': newTweetCharacterCount > 10}">
-        <label for="newTweet"><strong>New Tweet</strong> ({{ newTweetCharacterCount }}/180)</label>
+        :class="{'--exceeded': newTweetCharacterCount > 20}">
+        <label for="newTweet"><strong>New Tweet</strong> ({{ newTweetCharacterCount }}/20)</label>
         <textarea 
             id="newTweet" 
             rows="4"

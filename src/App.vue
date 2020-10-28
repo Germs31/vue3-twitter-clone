@@ -6,22 +6,18 @@
           Tweeetter
         </div>
       </router-link>
-      <div class="navigation__user" v-if="user">
+      <div class="navigation__user" v-if="state.user">
         {{ state.user.username }}
       </div>
     </nav>
     <router-view/>
-
-    <UserProfile />
   </div>
 </template>
 
 <script>
 import { reactive } from 'vue'
-import UserProfile from '@/components/UserProfile'
 export default {
   name: 'App',
-  components: { UserProfile },
   setup() {
     const state = reactive ({
       user: {
@@ -52,6 +48,7 @@ export default {
     background-color: #072F5F;
     color: white;
     .navigation__logo {
+      color: white;
       font-weight: bold;
       font-size: 24px;
     }
