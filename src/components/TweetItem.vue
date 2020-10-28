@@ -1,5 +1,5 @@
 <template>
-  <div class="tweet-item" @click="favoriteTweet(tweet.id)">
+  <div class="tweet-item">
       <div class="user-profile__tweet">
           <div class="tweet-item__user">
               @{{username}}
@@ -23,11 +23,6 @@ export default {
             type: Object,
             required: true
         }
-    },
-    methods: {
-        favoriteTweet(id){
-            this.$emit('favorite', id)
-        }
     }
 }
 </script>
@@ -45,7 +40,7 @@ export default {
         &:hover {
             transform: scale(1.1,1.1);
         }
-        
+
         .tweet-item__user {
             font-weight: bold;
             
