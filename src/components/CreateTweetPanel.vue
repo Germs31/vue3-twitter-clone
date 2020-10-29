@@ -3,19 +3,19 @@
         class="create-tweet-panel"
         @submit.prevent="createNewTweet"
         :class="{'--exceeded': newTweetCharacterCount > 20}">
-        <label for="newTweet"><strong>New Tweet</strong> ({{ newTweetCharacterCount }}/20)</label>
+        <label for="newtweet"><strong>New tweet</strong> ({{ newTweetCharacterCount }}/20)</label>
         <textarea 
-            id="newTweet" 
+            id="newtweet" 
             rows="4"
-            v-model="state.newTweetContent"/>
+            v-model="state.newContent"/>
 
             <div class="create-tweet-panel__submit">
                 <div class="create-tweet-type">
-                    <label for="newTweetType">
+                    <label for="newtweetType">
                         <strong>Type: </strong>
                     </label>
                     <select 
-                        id="newTweetType"
+                        id="newtweetType"
                         v-model="state.selectedTweetType">
 
                             <option 
@@ -27,7 +27,7 @@
                     </select>
 
                     <button>
-                        Tweet
+                        tweet
                     </button>
                 </div>
             </div>
@@ -47,7 +47,7 @@ export default {
                     value: 'draft', name: 'Draft'
                 },
                 {
-                    value: 'instant', name: 'Instant Tweet'
+                    value: 'instant', name: 'Instant tweet'
                 }
             ]
         })
@@ -55,9 +55,9 @@ export default {
         const newTweetCharacterCount = computed(() => state.newTweetContent.length)
 
         function createNewTweet() {
-            if(state.newTweetContent && state.selectedTweetType != 'draft'){
-                ctx.emit('add-tweet', state.newTweetContent)
-                state.newTweetContent = ''
+            if(state.newtweetContent && state.selectedtweetType != 'draft'){
+                ctx.emit('add-tweet', state.newtweetContent)
+                state.newtweetContent = ''
             }
         }
 

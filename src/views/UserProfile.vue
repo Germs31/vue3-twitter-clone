@@ -10,10 +10,10 @@
                 <strong>Followers: </strong> {{ state.followers }}
             </div>
           </div>
-          <CreateTweetPanel @add-tweet="addTweet" />
+          <CreateTweetPanel @add-tweet="addtweet" />
       </div>
       <div class="user-profile__tweet-wrapper">
-          <TweetItem 
+          <tweetItem 
             v-for="tweet in state.user.tweets"
             :key="tweet.id"
             :username="state.user.username"
@@ -23,37 +23,33 @@
 </template>
 
 <script>
-import { reactive } from 'vue'
+import { reactive, computed } from 'vue'
+import { useRoute } from 'vue-router'
+import { users } from '../assets/users.js'
 import TweetItem from '../components/TweetItem'
 import CreateTweetPanel from '../components/CreateTweetPanel'
 
 export default {
-    name:"userProfile",
+    name:"UserProfile",
     components: { CreateTweetPanel, TweetItem },
     setup() {
+        const route = useRoute()
+        const userId = computed(() => { 
+             return route.params.userId 
+        })
         const state = reactive({
             followers: 0,
-            user: {
-                id: 1,
-                username: '_Germs31',
-                firstName: 'Steve',
-                lastname: 'French',
-                email: 'german@german.com',
-                isAdmin: true,
-                tweets: [
-                    { id: 1, content: 'I like cheese'},
-                    { id: 2, content: 'I like turtles'}
-                ]
-            }
+            user: users[userId.value - 1] || users[0]
         })
 
-        function addTweet(tweet) {
+        function addtweet(tweet) {
             state.user.tweets.unshift({id: state.user.tweets.length + 1, content: tweet})
         }
 
         return {
             state,
-            addTweet 
+            addtweet,
+            userId 
         }
     }
 }
