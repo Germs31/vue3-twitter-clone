@@ -10,7 +10,7 @@
                 <strong>Followers: </strong> {{ state.followers }}
             </div>
           </div>
-          <CreateTweetPanel @add-tweet="addtweet" />
+          <CreateTweetPanel @add-tweet="addTweet" />
       </div>
       <div class="user-profile__tweet-wrapper">
           <tweetItem 
@@ -42,13 +42,13 @@ export default {
             user: users[userId.value - 1] || users[0]
         })
 
-        function addtweet(tweet) {
+        function addTweet(tweet) {
             state.user.tweets.unshift({id: state.user.tweets.length + 1, content: tweet})
         }
 
         return {
             state,
-            addtweet,
+            addTweet,
             userId 
         }
     }

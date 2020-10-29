@@ -3,11 +3,11 @@
         class="create-tweet-panel"
         @submit.prevent="createNewTweet"
         :class="{'--exceeded': newTweetCharacterCount > 20}">
-        <label for="newtweet"><strong>New tweet</strong> ({{ newTweetCharacterCount }}/20)</label>
+        <label for="newtweet"><strong>New Tweet</strong> ({{ newTweetCharacterCount }}/20)</label>
         <textarea 
             id="newtweet" 
             rows="4"
-            v-model="state.newContent"/>
+            v-model="state.newTweetContent"/>
 
             <div class="create-tweet-panel__submit">
                 <div class="create-tweet-type">
@@ -27,7 +27,7 @@
                     </select>
 
                     <button>
-                        tweet
+                        Tweet
                     </button>
                 </div>
             </div>
@@ -47,7 +47,7 @@ export default {
                     value: 'draft', name: 'Draft'
                 },
                 {
-                    value: 'instant', name: 'Instant tweet'
+                    value: 'instant', name: 'Instant Tweet'
                 }
             ]
         })
@@ -55,9 +55,9 @@ export default {
         const newTweetCharacterCount = computed(() => state.newTweetContent.length)
 
         function createNewTweet() {
-            if(state.newtweetContent && state.selectedtweetType != 'draft'){
-                ctx.emit('add-tweet', state.newtweetContent)
-                state.newtweetContent = ''
+            if(state.newTweetContent && state.selectedTweetType != 'draft'){
+                ctx.emit('add-tweet', state.newTweetContent)
+                state.newTweetContent = ''
             }
         }
 
