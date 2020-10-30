@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import UserProfile from '../views/UserProfile.vue'
+import Admin from '../views/Admin.vue'
 
 const routes = [
   {
@@ -12,6 +13,14 @@ const routes = [
     path: '/users/:userId',
     name: 'UserProfile',
     component: UserProfile
+  },
+  {
+    path: '/admin',
+    name: 'Admin',
+    component: Admin,
+    meta: {
+      requiresAdmin: true
+    }
   }
 ]
 
@@ -19,5 +28,17 @@ const router = createRouter({
   history: createWebHistory(),
   routes
 })
+
+// runs before everypage. good for protecting pages
+
+router.beforeEach(async (to, from, next) => {
+  // admin set to true jsut to test protecting routes.
+  const isAdmin = false;
+  const requiresAdmin = to.matched.some(record => record.meta.requiresAdmin)
+  // next redirects you
+  if(requiresAdmin && !isAdmin) next({name: 'Home'})
+  else next();
+})
+
 
 export default router
