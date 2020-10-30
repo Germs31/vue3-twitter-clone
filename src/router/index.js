@@ -35,10 +35,10 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   // VUEx
-  const user = store.state.user
+  const user = store.state.User.user
   if(!user){
     //dispatch, what you use to call actions
-    await store.dispatch( 'setUser', users[0])
+    await store.dispatch( 'User/setUser', users[0])
   }
   // admin set to true jsut to test protecting routes.
   const isAdmin = false;

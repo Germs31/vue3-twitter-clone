@@ -22,7 +22,7 @@ export default {
   setup() {
     const store = useStore();
     const user = computed(() =>{
-       return store.state.user
+       return store.state.User.user
     })
 
 
